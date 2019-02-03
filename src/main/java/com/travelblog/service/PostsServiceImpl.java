@@ -2,15 +2,21 @@ package com.travelblog.service;
 
 import com.travelblog.dto.PostContentDTO;
 import com.travelblog.model.Post;
+import com.travelblog.model.Tag;
 import com.travelblog.repository.PostsRepository;
 
+import com.travelblog.repository.TagsRepository;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -18,6 +24,9 @@ public class PostsServiceImpl implements PostsService {
 
     @Autowired
     private PostsRepository postsRepository;
+
+    @Autowired
+    private TagsService tagsService;
 
     public Long getCount(Long tabId) {
         return postsRepository.countByTabId(tabId);
@@ -43,8 +52,13 @@ public class PostsServiceImpl implements PostsService {
         return postsRepository.findById(id);
     }
 
+    @Transactional
     public void createPost(Post post) {
-        postsRepository.save(post);
+        Post newPost = postsRepository.save(post);
+        for (Tag tag : post.getTags()) {
+            tag.setPost(newPost);
+            tagsService.createTag(tag);
+        }
     }
 
 }

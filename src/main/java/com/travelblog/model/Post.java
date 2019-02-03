@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Post {
 
     @Id
@@ -26,7 +27,7 @@ public class Post {
     @Getter
     @Setter
     @Column(name = "created_at")
-    private Date createdAt;
+    private Date createdAt = new Date();
 
     @Getter
     @Setter

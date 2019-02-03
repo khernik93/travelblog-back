@@ -9,6 +9,7 @@ import com.travelblog.model.Tag;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -41,15 +42,14 @@ public class PostsMapper {
                 .build();
     }
 
-    public Post mapPostsContentDTOToPost(PostContentDTO postContentDTO) {
-        return new Post(
-                null,
-                new Tab(postContentDTO.getTab().getId(), null),
-                null,
-                postContentDTO.getTitle(),
-                postContentDTO.getContent(),
-                postContentDTO.getTags().stream().map(t -> new Tag(null, null, t)).collect(Collectors.toList())
-        );
+    public Post mapPostContentDTOToPost(PostContentDTO postContentDTO) {
+        return Post.builder()
+                .tab(postContentDTO.getTab())
+                .createdAt(new Date())
+                .title(postContentDTO.getTitle())
+                .content(postContentDTO.getContent())
+                .tags(postContentDTO.getTags().stream().map(tag -> new Tag(null, null, tag)).collect(Collectors.toList()))
+                .build();
     }
 
 }
