@@ -24,13 +24,19 @@ public class PostsServiceImpl implements PostsService {
     }
 
     public Iterable<Post> getChunk(Integer start, Integer end) {
-        Pageable chunk = PageRequest.of(start, end);
+        Pageable chunk = this.covnertOffsetToPage(start, end);
         return postsRepository.findAllByOrderByCreatedAt(chunk);
     }
 
     public Iterable<Post> getChunk(Long tabId, Integer start, Integer end) {
-        Pageable chunk = PageRequest.of(start, (end - start + 1));
+        Pageable chunk = this.covnertOffsetToPage(start, end);
         return postsRepository.findByTabIdOrderByCreatedAt(tabId, chunk);
+    }
+
+    private Pageable covnertOffsetToPage(Integer start, Integer end) {
+        Integer size = end - start + 1;
+        Integer page = (size != 0) ? start/size : 0;
+        return PageRequest.of(page, size);
     }
 
     public Optional<Post> getById(Long id) {
