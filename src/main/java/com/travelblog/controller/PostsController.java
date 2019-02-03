@@ -86,7 +86,7 @@ public class PostsController {
     @PostMapping("/post")
     public CompletableFuture<Boolean> createPost(
             @RequestBody PostContentDTO postContentDTO) {
-        Post post = postsMapper.mapPostsContentDTOToPost(postContentDTO);
+        Post post = postsMapper.mapPostContentDTOToPost(postContentDTO);
         postsService.createPost(post);
         return CompletableFuture.completedFuture(true);
     }
