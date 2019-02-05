@@ -1,4 +1,4 @@
-package com.travelblog.service;
+package com.travelblog.service.impl;
 
 import com.travelblog.dto.PostContentDTO;
 import com.travelblog.model.Post;
@@ -6,6 +6,8 @@ import com.travelblog.model.Tag;
 import com.travelblog.repository.PostsRepository;
 
 import com.travelblog.repository.TagsRepository;
+import com.travelblog.service.PostsService;
+import com.travelblog.service.TagsService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;

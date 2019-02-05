@@ -1,8 +1,9 @@
-package com.travelblog.service;
+package com.travelblog.service.impl;
 
 import com.travelblog.model.Tab;
 import com.travelblog.repository.TabsRepository;
 
+import com.travelblog.service.TabsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

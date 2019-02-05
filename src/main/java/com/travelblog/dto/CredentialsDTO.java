@@ -7,8 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class MetaDTO {
-    private Integer start;
-    private Integer end;
-    private Long total;
+public class CredentialsDTO {
+    private String email;
+    private String password;
 }

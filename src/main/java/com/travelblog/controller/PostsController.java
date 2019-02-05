@@ -4,21 +4,18 @@ import com.travelblog.dto.MetaDTO;
 import com.travelblog.dto.PostContentDTO;
 import com.travelblog.dto.PostDTO;
 import com.travelblog.error.PostsError;
+import com.travelblog.exception.AuthenticationException;
 import com.travelblog.exception.PostsException;
 import com.travelblog.mapper.PostsMapper;
-import com.travelblog.mapper.SwiperMapper;
-import com.travelblog.mapper.TabsMapper;
 import com.travelblog.model.Post;
+import com.travelblog.service.auth.AuthService;
 import com.travelblog.service.PostsService;
-import com.travelblog.service.SwiperService;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import com.travelblog.model.Tab;
-import com.travelblog.service.TabsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -30,6 +27,12 @@ public class PostsController {
 
     @Autowired
     private PostsMapper postsMapper;
+
+    @Autowired
+    private AuthService authService;
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     @GetMapping("/post/tab/{id}")
     public CompletableFuture<PostDTO> getPosts(
@@ -85,7 +88,11 @@ public class PostsController {
 
     @PostMapping("/post")
     public CompletableFuture<Boolean> createPost(
-            @RequestBody PostContentDTO postContentDTO) {
+            @RequestBody PostContentDTO postContentDTO,
+            HttpServletRequest request) {
+        if (! authService.isAuthenticated(request)) {
+            throw new AuthenticationException();
+        }
         Post post = postsMapper.mapPostContentDTOToPost(postContentDTO);
         postsService.createPost(post);
         return CompletableFuture.completedFuture(true);
