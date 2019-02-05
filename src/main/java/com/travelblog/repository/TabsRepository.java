@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TabsRepository extends CrudRepository<Tab, Integer> {
-    
+
+    Iterable<Tab> findAll();
+
 }

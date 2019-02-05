@@ -1,19 +1,14 @@
-package com.travelblog.service;
+package com.travelblog.service.impl;
 
-import com.travelblog.dto.PostContentDTO;
 import com.travelblog.model.Post;
 import com.travelblog.model.Tag;
 import com.travelblog.repository.PostsRepository;
 
-import com.travelblog.repository.TagsRepository;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import com.travelblog.service.PostsService;
+import com.travelblog.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -28,8 +23,9 @@ public class PostsServiceImpl implements PostsService {
     @Autowired
     private TagsService tagsService;
 
-    public Long getCount(Long tabId) {
-        return postsRepository.countByTabId(tabId);
+    public Integer adjustEndParameter(Integer end, Long total) {
+        Integer totalInt = total.intValue();
+        return (end == null || end > totalInt - 1) ? totalInt - 1 : end;
     }
 
     public Iterable<Post> getChunk(Integer start, Integer end) {
@@ -37,7 +33,7 @@ public class PostsServiceImpl implements PostsService {
         return postsRepository.findAllByOrderByCreatedAt(chunk);
     }
 
-    public Iterable<Post> getChunk(Long tabId, Integer start, Integer end) {
+    public Iterable<Post> getChunkByTabId(Long tabId, Integer start, Integer end) {
         Pageable chunk = this.covnertOffsetToPage(start, end);
         return postsRepository.findByTabIdOrderByCreatedAt(tabId, chunk);
     }
@@ -48,17 +44,14 @@ public class PostsServiceImpl implements PostsService {
         return PageRequest.of(page, size);
     }
 
-    public Optional<Post> getById(Long id) {
-        return postsRepository.findById(id);
-    }
-
     @Transactional
-    public void createPost(Post post) {
+    public Post createPost(Post post) {
         Post newPost = postsRepository.save(post);
         for (Tag tag : post.getTags()) {
             tag.setPost(newPost);
             tagsService.createTag(tag);
         }
+        return newPost;
     }
 
 }
