@@ -1,14 +1,15 @@
 package com.travelblog.model;
 
 import lombok.*;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Tag {
+public class User {
 
     @Id
     @Getter
@@ -18,12 +19,15 @@ public class Tag {
 
     @Getter
     @Setter
-    @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
+    private String email;
 
     @Getter
     @Setter
-    private String name;
+    private String password;
+
+    @Getter
+    @Setter
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

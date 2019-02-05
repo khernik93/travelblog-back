@@ -1,6 +1,7 @@
 package com.travelblog.mapper;
 
-import com.travelblog.dto.TabDTO;
+import com.travelblog.dto.tabs.TabDTO;
+import com.travelblog.dto.tabs.TabsListDTO;
 import org.springframework.stereotype.Component;
 import com.travelblog.model.Tab;
 
@@ -11,16 +12,17 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class TabsMapper {
 
-    public CompletableFuture<List<TabDTO>> mapTabsIterableToTabDTOS(Iterable<Tab> tabsIterable) {
-        List<TabDTO> tabDTOS = new ArrayList<>();
+    public CompletableFuture<TabsListDTO> mapToTabsListDTO(Iterable<Tab> tabsIterable) {
+        List<TabDTO> tabDTOs = new ArrayList<>();
         for(Tab tab : tabsIterable) {
-            tabDTOS.add(TabDTO.builder()
+            tabDTOs.add(TabDTO.builder()
                     .id(tab.getId())
                     .name(tab.getName())
-                    .build()
-            );
+                    .build());
         }
-        return CompletableFuture.completedFuture(tabDTOS);
+        return CompletableFuture.completedFuture(
+                TabsListDTO.builder().tabs(tabDTOs).build()
+        );
     }
 
 }

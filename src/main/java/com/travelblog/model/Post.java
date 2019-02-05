@@ -27,7 +27,7 @@ public class Post {
     @Getter
     @Setter
     @Column(name = "created_at")
-    private Date createdAt = new Date();
+    private Date createdAt;
 
     @Getter
     @Setter
