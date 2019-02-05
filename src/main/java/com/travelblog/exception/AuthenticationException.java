@@ -2,6 +2,6 @@ package com.travelblog.exception;
 
 public class AuthenticationException extends RuntimeException {
 
-    public AuthenticationException() { super("Invalid token"); }
+    public AuthenticationException() { super("Invalid authentication token"); }
 
 }

@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Tag {

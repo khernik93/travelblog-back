@@ -1,4 +1,4 @@
-package com.travelblog.dto;
+package com.travelblog.dto.posts;
 
 import lombok.Builder;
 import lombok.Data;

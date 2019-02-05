@@ -1,6 +1,7 @@
 package com.travelblog.mapper;
 
-import com.travelblog.model.SwiperPhoto;
+import com.travelblog.dto.swiper.SwiperDTO;
+import com.travelblog.model.Swiper;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,17 +13,22 @@ import java.util.concurrent.CompletableFuture;
 @Component
 public class SwiperMapper {
 
-    public CompletableFuture<Map<String, List<String>>> mapSwiperPhotosIterableToSwiperPhotosMap
-            (Iterable<SwiperPhoto> swiperPhotosIterable) {
-        Map<String, List<String>> swiperPhotosMap = new HashMap<>();
-        for(SwiperPhoto swiperPhoto : swiperPhotosIterable) {
-            List<String> urls = swiperPhotosMap.get(swiperPhoto.getTab().getName());
-            if (urls == null) {
-                swiperPhotosMap.put(swiperPhoto.getTab().getName(), new ArrayList<>());
+    public CompletableFuture<SwiperDTO> mapToSwiperDTO(Iterable<Swiper> swiperIterable) {
+        Map<String, List<String>> tabPhotos = new HashMap<>();
+
+        for(Swiper swiper : swiperIterable) {
+            List<String> photos = tabPhotos.get(swiper.getTab().getName());
+            if (photos == null) {
+                tabPhotos.put(swiper.getTab().getName(), new ArrayList<>());
             }
-            swiperPhotosMap.get(swiperPhoto.getTab().getName()).add(swiperPhoto.getUrl());
+            tabPhotos.get(swiper.getTab().getName()).add(swiper.getUrl());
         }
-        return CompletableFuture.completedFuture(swiperPhotosMap);
+
+        return CompletableFuture.completedFuture(
+                SwiperDTO.builder()
+                .tabPhotos(tabPhotos)
+                .build()
+        );
     }
 
 }

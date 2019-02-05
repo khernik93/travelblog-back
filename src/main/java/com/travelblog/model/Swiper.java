@@ -8,7 +8,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "swiper_photo")
-public class SwiperPhoto {
+public class Swiper {
 
     @Id
     @Getter
