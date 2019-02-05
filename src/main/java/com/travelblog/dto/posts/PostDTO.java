@@ -8,8 +8,6 @@ import java.util.List;
 @Data
 @Builder
 public class PostDTO {
-
     private MetaDTO meta;
     private List<PostContentDTO> content;
-
 }

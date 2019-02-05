@@ -1,4 +1,4 @@
-package com.travelblog.dto;
+package com.travelblog.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
