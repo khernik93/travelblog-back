@@ -1,12 +1,12 @@
 package com.travelblog.repository;
 
+import com.travelblog.model.Swiper;
 import org.springframework.data.repository.CrudRepository;
-import com.travelblog.model.Tab;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TabsRepository extends CrudRepository<Tab, Integer> {
+public interface SwiperRepository extends CrudRepository<Swiper, Integer> {
 
-    Iterable<Tab> findAll();
+    Iterable<Swiper> findAll();
 
 }

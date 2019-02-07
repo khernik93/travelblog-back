@@ -9,3 +9,4 @@ gradle
 travelblog-back.iml
 .idea
 out
+dump.rdb

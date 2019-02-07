@@ -1,22 +1,21 @@
 package com.travelblog.mapper;
 
-import com.travelblog.dto.MetaDTO;
-import com.travelblog.dto.PostContentDTO;
-import com.travelblog.dto.PostDTO;
+import com.travelblog.dto.posts.PostContentDTO;
+import com.travelblog.dto.posts.PostContentsListDTO;
 import com.travelblog.model.Post;
 import com.travelblog.model.Tab;
 import com.travelblog.model.Tag;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Component
 public class PostsMapper {
 
-    public List<PostContentDTO> mapPostsIterableToPostsContentDTOS(Iterable<Post> postsIterable) {
+    public List<PostContentDTO> mapToPostsContentDTOs(Iterable<Post> postsIterable) {
         List<PostContentDTO> postContentDTOS = new ArrayList<>();
         for(Post post : postsIterable) {
             PostContentDTO postContentDTO = PostContentDTO.builder()
@@ -31,7 +30,7 @@ public class PostsMapper {
         return postContentDTOS;
     }
 
-    public PostContentDTO mapPostToPostsContentDTO(Post post) {
+    public PostContentDTO mapToPostContentDTO(Post post) {
         return PostContentDTO.builder()
                 .tab(new Tab(post.getTab().getId(), post.getTab().getName()))
                 .createdAt(post.getCreatedAt())
@@ -41,15 +40,24 @@ public class PostsMapper {
                 .build();
     }
 
-    public Post mapPostsContentDTOToPost(PostContentDTO postContentDTO) {
-        return new Post(
-                null,
-                new Tab(postContentDTO.getTab().getId(), null),
-                null,
-                postContentDTO.getTitle(),
-                postContentDTO.getContent(),
-                postContentDTO.getTags().stream().map(t -> new Tag(null, null, t)).collect(Collectors.toList())
-        );
+    public Post mapToPost(PostContentDTO postContentDTO) {
+        return Post.builder()
+                .tab(postContentDTO.getTab())
+                .title(postContentDTO.getTitle())
+                .content(postContentDTO.getContent())
+                .createdAt(new Date())
+                .tags(postContentDTO.getTags().stream().map(name -> Tag.builder().name(name).build()).collect(Collectors.toList()))
+                .build();
+    }
+
+    public PostContentsListDTO mapToPostContentsListDTO(Iterable<Post> postsIterable) {
+        List<PostContentDTO> postContentDTOs = new ArrayList<>();
+        for (Post post : postsIterable) {
+            postContentDTOs.add(mapToPostContentDTO(post));
+        }
+        return PostContentsListDTO.builder()
+                .postContents(postContentDTOs)
+                .build();
     }
 
 }
