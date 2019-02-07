@@ -55,7 +55,7 @@ public interface PostsControllerResources {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 500, message = "Couldn't create the post")
     })
-    @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     CompletableFuture<PostContentDTO> createPost(
             @RequestBody PostContentDTO postContentDTO,

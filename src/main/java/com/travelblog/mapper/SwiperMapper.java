@@ -14,14 +14,14 @@ import java.util.concurrent.CompletableFuture;
 public class SwiperMapper {
 
     public CompletableFuture<SwiperDTO> mapToSwiperDTO(Iterable<Swiper> swiperIterable) {
-        Map<String, List<String>> tabPhotos = new HashMap<>();
+        Map<Long, List<String>> tabPhotos = new HashMap<>();
 
         for(Swiper swiper : swiperIterable) {
-            List<String> photos = tabPhotos.get(swiper.getTab().getName());
+            List<String> photos = tabPhotos.get(swiper.getTab().getId());
             if (photos == null) {
-                tabPhotos.put(swiper.getTab().getName(), new ArrayList<>());
+                tabPhotos.put(swiper.getTab().getId(), new ArrayList<>());
             }
-            tabPhotos.get(swiper.getTab().getName()).add(swiper.getUrl());
+            tabPhotos.get(swiper.getTab().getId()).add(swiper.getUrl());
         }
 
         return CompletableFuture.completedFuture(

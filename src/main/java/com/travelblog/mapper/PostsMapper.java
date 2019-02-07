@@ -43,9 +43,9 @@ public class PostsMapper {
     public Post mapToPost(PostContentDTO postContentDTO) {
         return Post.builder()
                 .tab(postContentDTO.getTab())
-                .createdAt(new Date())
                 .title(postContentDTO.getTitle())
                 .content(postContentDTO.getContent())
+                .createdAt(new Date())
                 .tags(postContentDTO.getTags().stream().map(name -> Tag.builder().name(name).build()).collect(Collectors.toList()))
                 .build();
     }

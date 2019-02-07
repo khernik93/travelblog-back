@@ -46,7 +46,7 @@ public class AuthController implements AuthControllerResources {
         authTokenRepository.save(new AuthToken(token));
 
         Cookie cookie = new Cookie(authService.COOKIE_NAME, token);
-        cookie.setMaxAge(jwtService.TTL_MILLIS);
+        cookie.setMaxAge(authService.TTL_MILLIS);
         cookie.setPath("/");
         response.addCookie(cookie);
 
