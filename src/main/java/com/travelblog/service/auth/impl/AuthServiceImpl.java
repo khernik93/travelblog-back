@@ -5,16 +5,14 @@ import com.travelblog.model.redis.AuthToken;
 import com.travelblog.repository.UserRepository;
 import com.travelblog.repository.redis.AuthTokenRepository;
 import com.travelblog.service.auth.AuthService;
-import io.jsonwebtoken.security.Keys;
+import com.travelblog.service.auth.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import io.jsonwebtoken.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Key;
 import java.util.*;
 
 @Service
@@ -26,6 +24,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private AuthTokenRepository authTokenRepository;
+
+    @Autowired
+    private JwtService jwtService;
 
     public boolean checkEmailAndPassword(String email, String password) {
         Optional<User> optionalUser = userRepository.findOneByEmail(email);
@@ -45,15 +46,14 @@ public class AuthServiceImpl implements AuthService {
         if (! authTokenOptional.isPresent()) {
             return false;
         }
+        return !isTokenExpired(authTokenOptional.get().getToken());
+    }
 
-        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-        Date exp = Jwts.parser().setSigningKey(key).parseClaimsJws(authTokenOptional.get().getToken()).getBody().getExpiration();
+    private boolean isTokenExpired(String token) {
+        Date expirationDate = jwtService.getExpirationDate(token);
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-        if (now.getTime() > exp.getTime()) {
-            return false;
-        }
-        return true;
+        return (now.getTime() > expirationDate.getTime());
     }
 
 }

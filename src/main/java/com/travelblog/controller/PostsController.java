@@ -1,10 +1,7 @@
 package com.travelblog.controller;
 
 import com.travelblog.controller.resources.PostsControllerResources;
-import com.travelblog.dto.posts.MetaDTO;
-import com.travelblog.dto.posts.PostContentDTO;
-import com.travelblog.dto.posts.PostContentsListDTO;
-import com.travelblog.dto.posts.PostDTO;
+import com.travelblog.dto.posts.*;
 import com.travelblog.error.PostsError;
 import com.travelblog.exception.AuthenticationException;
 import com.travelblog.exception.PostsException;

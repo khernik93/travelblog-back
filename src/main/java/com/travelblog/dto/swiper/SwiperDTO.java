@@ -9,5 +9,5 @@ import java.util.Map;
 @Data
 @Builder
 public class SwiperDTO {
-    private Map<String, List<String>> tabPhotos;
+    private Map<Long, List<String>> tabPhotos;
 }
