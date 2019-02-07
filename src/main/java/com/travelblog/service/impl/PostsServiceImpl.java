@@ -30,12 +30,12 @@ public class PostsServiceImpl implements PostsService {
 
     public Iterable<Post> getChunk(Integer start, Integer end) {
         Pageable chunk = this.covnertOffsetToPage(start, end);
-        return postsRepository.findAllByOrderByCreatedAt(chunk);
+        return postsRepository.findAllByOrderByCreatedAtDesc(chunk);
     }
 
     public Iterable<Post> getChunkByTabId(Long tabId, Integer start, Integer end) {
         Pageable chunk = this.covnertOffsetToPage(start, end);
-        return postsRepository.findByTabIdOrderByCreatedAt(tabId, chunk);
+        return postsRepository.findByTabIdOrderByCreatedAtDesc(tabId, chunk);
     }
 
     private Pageable covnertOffsetToPage(Integer start, Integer end) {
