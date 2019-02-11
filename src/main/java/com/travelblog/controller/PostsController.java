@@ -4,6 +4,7 @@ import com.travelblog.controller.resources.PostsControllerResources;
 import com.travelblog.dto.posts.*;
 import com.travelblog.error.PostsError;
 import com.travelblog.exception.AuthenticationException;
+import com.travelblog.exception.AuthorizationException;
 import com.travelblog.exception.PostsException;
 import com.travelblog.mapper.PostsMapper;
 import com.travelblog.model.Post;
@@ -98,7 +99,7 @@ public class PostsController implements PostsControllerResources {
 
     public CompletableFuture<PostContentDTO> createPost(PostContentDTO postContentDTO, HttpServletRequest request) {
         if (! authService.isAuthenticated(request)) {
-            throw new AuthenticationException();
+            throw new AuthorizationException();
         }
         Post post = postsMapper.mapToPost(postContentDTO);
         Post newPost;

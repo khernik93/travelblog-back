@@ -12,6 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class PostContentDTO {
+    private Long id;
     private Tab tab;
     private Date createdAt;
     private String title;

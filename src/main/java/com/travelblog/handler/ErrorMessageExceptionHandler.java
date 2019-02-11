@@ -1,6 +1,7 @@
 package com.travelblog.handler;
 
 import com.travelblog.exception.AuthenticationException;
+import com.travelblog.exception.AuthorizationException;
 import com.travelblog.exception.PostsException;
 import com.travelblog.exception.TabsException;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,12 @@ public class ErrorMessageExceptionHandler {
     @RequestMapping(produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity handlePostsException(final PostsException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    @RequestMapping(produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity handleAuthorizationException(final AuthorizationException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(AuthenticationException.class)

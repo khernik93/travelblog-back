@@ -6,6 +6,7 @@ import com.travelblog.repository.UserRepository;
 import com.travelblog.repository.redis.AuthTokenRepository;
 import com.travelblog.service.auth.AuthService;
 import com.travelblog.service.auth.JwtService;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -46,14 +47,21 @@ public class AuthServiceImpl implements AuthService {
         if (! authTokenOptional.isPresent()) {
             return false;
         }
-        return !isTokenExpired(authTokenOptional.get().getToken());
+        boolean isValid;
+        try {
+            isValid = isTokenValid(authTokenOptional.get().getToken());
+        } catch (ExpiredJwtException exception) {
+            log.error(exception.getMessage());
+            isValid = false;
+        }
+        return isValid;
     }
 
-    private boolean isTokenExpired(String token) {
+    private boolean isTokenValid(String token) {
         Date expirationDate = jwtService.getExpirationDate(token);
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-        return (now.getTime() > expirationDate.getTime());
+        return (now.getTime() <= expirationDate.getTime());
     }
 
 }

@@ -19,6 +19,7 @@ public class PostsMapper {
         List<PostContentDTO> postContentDTOS = new ArrayList<>();
         for(Post post : postsIterable) {
             PostContentDTO postContentDTO = PostContentDTO.builder()
+                    .id(post.getId())
                     .tab(new Tab(post.getTab().getId(), post.getTab().getName()))
                     .createdAt(post.getCreatedAt())
                     .title(post.getTitle())
@@ -32,6 +33,7 @@ public class PostsMapper {
 
     public PostContentDTO mapToPostContentDTO(Post post) {
         return PostContentDTO.builder()
+                .id(post.getId())
                 .tab(new Tab(post.getTab().getId(), post.getTab().getName()))
                 .createdAt(post.getCreatedAt())
                 .title(post.getTitle())
