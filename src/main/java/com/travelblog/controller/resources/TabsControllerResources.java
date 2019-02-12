@@ -1,6 +1,6 @@
 package com.travelblog.controller.resources;
 
-import com.travelblog.dto.swiper.SwiperDTO;
+import com.travelblog.dto.tabs.TabsListDTO;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.concurrent.CompletableFuture;
 
-@RequestMapping(value = "/swiper", produces = MediaType.APPLICATION_JSON_VALUE)
-public interface SwiperResources {
+@RequestMapping(value = "/tab", produces = MediaType.APPLICATION_JSON_VALUE)
+public interface TabsControllerResources {
 
     /**
-     * Returns map of swiper photos
+     * Returns list of tabs
      * @return tabs
      */
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
-            @ApiResponse(code = 500, message = "Couldn't fetch swiper photos")
+            @ApiResponse(code = 500, message = "Couldn't fetch tabs")
     })
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    CompletableFuture<SwiperDTO> getPhotos();
+    CompletableFuture<TabsListDTO> getTabs();
 
 }

@@ -1,6 +1,6 @@
 package com.travelblog.controller;
 
-import com.travelblog.controller.resources.TabsResources;
+import com.travelblog.controller.resources.TabsControllerResources;
 import com.travelblog.dto.tabs.TabsListDTO;
 import com.travelblog.error.TabsError;
 import com.travelblog.exception.TabsException;
@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @Slf4j
-public class TabsController implements TabsResources {
+public class TabsController implements TabsControllerResources {
 
     @Autowired
     private TabsRepository tabsRepository;

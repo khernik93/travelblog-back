@@ -1,6 +1,6 @@
 package com.travelblog.controller;
 
-import com.travelblog.controller.resources.SwiperResources;
+import com.travelblog.controller.resources.SwiperControllerResources;
 import com.travelblog.dto.swiper.SwiperDTO;
 import com.travelblog.error.SwiperError;
 import com.travelblog.exception.SwiperException;
@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @Slf4j
-public class SwiperController implements SwiperResources {
+public class SwiperController implements SwiperControllerResources {
 
     @Autowired
     private SwiperRepository swiperRepository;
