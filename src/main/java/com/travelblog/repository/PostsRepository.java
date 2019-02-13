@@ -13,8 +13,8 @@ public interface PostsRepository extends CrudRepository<Post, Long> {
 
     Long countByTabId(Long tabId);
 
-    List<Post> findAllByOrderByCreatedAt(Pageable pageable);
+    List<Post> findAllByOrderByCreatedAtDesc(Pageable pageable);
 
-    List<Post> findByTabIdOrderByCreatedAt(Long tabId, Pageable pageable);
+    List<Post> findByTabIdOrderByCreatedAtDesc(Long tabId, Pageable pageable);
 
 }

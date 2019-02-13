@@ -1,21 +1,22 @@
-package com.travelblog.dto.posts;
+package com.travelblog.dto.comments;
 
-import com.travelblog.model.Tab;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
-public class PostContentDTO {
+public class CommentDTO {
     private Long id;
-    private Tab tab;
+    private String name;
     private Date createdAt;
-    private String title;
     private String content;
-    private List<String> tags;
+    private String email;
+
+    public String getName() {
+        return name != null ? name : "Anonymous";
+    }
 }

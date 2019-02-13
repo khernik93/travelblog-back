@@ -1,7 +1,6 @@
 package com.travelblog.model;
 
 import lombok.*;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,13 +9,23 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
+public class Comment {
 
     @Id
     @Getter
     @Setter
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    @Getter
+    @Setter
+    private String name;
 
     @Getter
     @Setter
@@ -24,11 +33,12 @@ public class User {
 
     @Getter
     @Setter
-    private String password;
+    @Column(columnDefinition = "text")
+    private String content;
 
     @Getter
     @Setter
-    @Column(name = "created_at")
+    @Column(columnDefinition = "created_at")
     private Date createdAt;
 
 }
