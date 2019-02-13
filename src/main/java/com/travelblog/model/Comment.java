@@ -3,6 +3,7 @@ package com.travelblog.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -24,7 +25,20 @@ public class Comment {
 
     @Getter
     @Setter
+    private String name;
+
+    @Getter
+    @Setter
+    private String email;
+
+    @Getter
+    @Setter
     @Column(columnDefinition = "text")
     private String content;
+
+    @Getter
+    @Setter
+    @Column(columnDefinition = "created_at")
+    private Date createdAt;
 
 }
