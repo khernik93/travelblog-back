@@ -29,6 +29,9 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private JwtService jwtService;
 
+    @Autowired
+    private BCrypt bCrypt;
+
     public boolean checkEmailAndPassword(String email, String password) {
         Optional<User> optionalUser = userRepository.findOneByEmail(email);
         if (! optionalUser.isPresent()) {
@@ -38,7 +41,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     private boolean checkPassword(String plainPassword, String hashPassword) {
-        return BCrypt.checkpw(plainPassword, hashPassword);
+        return bCrypt.checkpw(plainPassword, hashPassword);
     }
 
     public boolean isAuthenticated(HttpServletRequest request) {

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Tab {
 
     @Id

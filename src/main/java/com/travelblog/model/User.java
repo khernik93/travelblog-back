@@ -9,6 +9,7 @@ import java.util.Date;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
 
     @Id

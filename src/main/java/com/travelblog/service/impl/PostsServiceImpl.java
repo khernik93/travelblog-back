@@ -4,15 +4,14 @@ import com.travelblog.model.Post;
 import com.travelblog.model.Tag;
 import com.travelblog.repository.PostsRepository;
 
+import com.travelblog.repository.TagsRepository;
 import com.travelblog.service.PostsService;
-import com.travelblog.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 public class PostsServiceImpl implements PostsService {
@@ -21,7 +20,7 @@ public class PostsServiceImpl implements PostsService {
     private PostsRepository postsRepository;
 
     @Autowired
-    private TagsService tagsService;
+    private TagsRepository tagsRepository;
 
     public Integer adjustEndParameter(Integer end, Long total) {
         Integer totalInt = total.intValue();
@@ -49,7 +48,7 @@ public class PostsServiceImpl implements PostsService {
         Post newPost = postsRepository.save(post);
         for (Tag tag : post.getTags()) {
             tag.setPost(newPost);
-            tagsService.createTag(tag);
+            tagsRepository.save(tag);
         }
         return newPost;
     }

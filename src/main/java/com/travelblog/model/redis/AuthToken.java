@@ -1,15 +1,13 @@
 package com.travelblog.model.redis;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @RedisHash("AuthToken")
 public class AuthToken {
     @Id
