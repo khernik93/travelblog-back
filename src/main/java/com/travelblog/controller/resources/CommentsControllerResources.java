@@ -1,5 +1,6 @@
 package com.travelblog.controller.resources;
 
+import com.travelblog.dto.comments.CommentDTO;
 import com.travelblog.dto.comments.CommentsListDTO;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -24,6 +25,20 @@ public interface CommentsControllerResources {
     @GetMapping(path = "/{postId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     CompletableFuture<CommentsListDTO> getComments(
+            @PathVariable(value = "postId", required = true) Long postId);
+
+    /**
+     * Adds new comment
+     * @return new comment
+     */
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 500, message = "Couldn't add the comment")
+    })
+    @PostMapping(path = "/{postId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    CompletableFuture<CommentDTO> addComment(
+            @RequestBody CommentDTO commentDTO,
             @PathVariable(value = "postId", required = true) Long postId);
 
 }

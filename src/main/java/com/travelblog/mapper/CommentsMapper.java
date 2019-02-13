@@ -21,14 +21,30 @@ public class CommentsMapper {
     public CommentsListDTO mapToCommentsListDTO(Iterable<Comment> commentsIterable) {
         List<CommentDTO> commentDTOs = new ArrayList<>();
         for(Comment comment : commentsIterable) {
-            CommentDTO commentDTO = CommentDTO.builder()
-                    .id(comment.getId())
-                    .content(comment.getContent())
-                    .build();
+            CommentDTO commentDTO = mapToCommentDTO(comment);
             commentDTOs.add(commentDTO);
         }
         return CommentsListDTO.builder()
                 .comments(commentDTOs)
+                .build();
+    }
+
+    public CommentDTO mapToCommentDTO(Comment comment) {
+        return CommentDTO.builder()
+                .id(comment.getId())
+                .name(comment.getName())
+                .createdAt(comment.getCreatedAt())
+                .content(comment.getContent())
+                .email(comment.getEmail())
+                .build();
+    }
+
+    public Comment mapToComment(CommentDTO commentDTO) {
+        return Comment.builder()
+                .name(commentDTO.getName())
+                .createdAt(new Date())
+                .content(commentDTO.getContent())
+                .email(commentDTO.getEmail())
                 .build();
     }
 
