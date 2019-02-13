@@ -31,7 +31,7 @@ public class CommentsController implements CommentsControllerResources {
     public CompletableFuture<CommentsListDTO> getComments(Long postId) {
         Iterable<Comment> comments;
         try {
-            comments = commentsRepository.findAllByPostId(postId);
+            comments = commentsRepository.findAllByPostIdOrderByCreatedAtDesc(postId);
         } catch (DataAccessException exception) {
             log.error(exception.toString());
             throw new CommentsException(new CommentsError("Couldn't fetch comments"));
@@ -44,7 +44,7 @@ public class CommentsController implements CommentsControllerResources {
 
     public CompletableFuture<CommentDTO> addComment(CommentDTO commentDTO, Long postId) {
         Comment comment = commentsMapper.mapToComment(commentDTO);
-        comment.setPost(Post.builder().id(postId).build());
+        comment = commentsMapper.addPostId(comment, postId);
         Comment newComment;
         try {
             newComment = commentsRepository.save(comment);

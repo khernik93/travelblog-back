@@ -48,4 +48,9 @@ public class CommentsMapper {
                 .build();
     }
 
+    public Comment addPostId(Comment comment, Long postId) {
+        comment.setPost(Post.builder().id(postId).build());
+        return comment;
+    }
+
 }

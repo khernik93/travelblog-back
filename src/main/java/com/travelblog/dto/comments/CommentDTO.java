@@ -15,4 +15,8 @@ public class CommentDTO {
     private Date createdAt;
     private String content;
     private String email;
+
+    public String getName() {
+        return name != null ? name : "Anonymous";
+    }
 }
