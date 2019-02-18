@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.SignatureException;
 import java.util.*;
 
 @Service
@@ -46,10 +47,14 @@ public class AuthServiceImpl implements AuthService {
 
     public boolean isAuthenticated(HttpServletRequest request) {
         String headerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (headerToken == null) {
+            return false;
+        }
         Optional<AuthToken> authTokenOptional = authTokenRepository.findById(headerToken);
         if (! authTokenOptional.isPresent()) {
             return false;
         }
+
         boolean isValid;
         try {
             isValid = isTokenValid(authTokenOptional.get().getToken());
