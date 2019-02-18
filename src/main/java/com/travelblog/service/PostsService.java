@@ -30,10 +30,10 @@ public interface PostsService {
     Iterable<Post> getChunkByTabId(Long tabId, Integer start, Integer end);
 
     /**
-     * Create new post
+     * Create a new post or update an existing post
      * @param post
-     * @return newly created post
+     * @return new post
      */
-    Post createPost(Post post);
+    Post updatePost(Post post);
 
 }

@@ -62,6 +62,34 @@ public interface PostsControllerResources {
             HttpServletRequest request);
 
     /**
+     * Update post
+     * @return updated post content
+     */
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 500, message = "Couldn't update the post")
+    })
+    @PutMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    CompletableFuture<PostContentDTO> updatePost(
+            @RequestBody PostContentDTO postContentDTO,
+            HttpServletRequest request);
+
+    /**
+     * Delete post
+     * @return boolean
+     */
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 500, message = "Couldn't delete the post")
+    })
+    @DeleteMapping(path = "/{postId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    CompletableFuture<Boolean> deletePost(
+            @PathVariable Long postId,
+            HttpServletRequest request);
+
+    /**
      * Get recent posts
      * @return recent posts list
      */

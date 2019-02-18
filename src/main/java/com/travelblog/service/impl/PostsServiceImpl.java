@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PostsServiceImpl implements PostsService {
@@ -44,12 +46,15 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Transactional
-    public Post createPost(Post post) {
+    public Post updatePost(Post post) {
         Post newPost = postsRepository.save(post);
+        List<Tag> newTags = new ArrayList<>();
+        tagsRepository.deleteAllByPostId(post.getId());
         for (Tag tag : post.getTags()) {
             tag.setPost(newPost);
-            tagsRepository.save(tag);
+            newTags.add(tagsRepository.save(tag));
         }
+        newPost.setTags(newTags);
         return newPost;
     }
 

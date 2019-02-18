@@ -98,19 +98,48 @@ public class PostsController implements PostsControllerResources {
     }
 
     public CompletableFuture<PostContentDTO> createPost(PostContentDTO postContentDTO, HttpServletRequest request) {
+        try {
+            return this.createOrUpdatePost(postContentDTO, request);
+        } catch (Exception exception) {
+            throw exception;
+        }
+    }
+
+    public CompletableFuture<PostContentDTO> updatePost(PostContentDTO postContentDTO, HttpServletRequest request) {
+        try {
+            return this.createOrUpdatePost(postContentDTO, request);
+        } catch (Exception exception) {
+            throw exception;
+        }
+    }
+
+    private CompletableFuture<PostContentDTO> createOrUpdatePost(PostContentDTO postContentDTO, HttpServletRequest request) {
         if (! authService.isAuthenticated(request)) {
             throw new AuthorizationException();
         }
         Post post = postsMapper.mapToPost(postContentDTO);
         Post newPost;
         try {
-            newPost = postsService.createPost(post);
+            newPost = postsService.updatePost(post);
         } catch (DataAccessException exception) {
             log.error(exception.toString());
-            throw new PostsException(new PostsError("Couldn't create a post"));
+            throw new PostsException(new PostsError("Couldn't create or update a post"));
         }
         PostContentDTO newPostContentDTO = postsMapper.mapToPostContentDTO(newPost);
         return CompletableFuture.completedFuture(newPostContentDTO);
+    }
+
+    public CompletableFuture<Boolean> deletePost(Long postId, HttpServletRequest request) {
+        if (! authService.isAuthenticated(request)) {
+            throw new AuthorizationException();
+        }
+        try {
+            postsRepository.deleteById(postId);
+        } catch (DataAccessException exception) {
+            log.error(exception.toString());
+            throw new PostsException(new PostsError("Couldn't delete a post"));
+        }
+        return CompletableFuture.completedFuture(true);
     }
 
     public CompletableFuture<PostContentsListDTO> getRecentPosts(Integer start, Integer end) {

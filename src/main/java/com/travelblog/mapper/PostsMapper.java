@@ -44,6 +44,7 @@ public class PostsMapper {
 
     public Post mapToPost(PostContentDTO postContentDTO) {
         return Post.builder()
+                .id(postContentDTO.getId() != null ? postContentDTO.getId() : null)
                 .tab(postContentDTO.getTab())
                 .title(postContentDTO.getTitle())
                 .content(postContentDTO.getContent())
