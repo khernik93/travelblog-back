@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.CompletableFuture;
 
-@RequestMapping(value = "/post", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/post", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface PostsControllerResources {
 
     /**

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.concurrent.CompletableFuture;
 
-@RequestMapping(value = "/tab", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/tab", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface TabsControllerResources {
 
     /**

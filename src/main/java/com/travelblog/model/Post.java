@@ -40,7 +40,7 @@ public class Post {
 
     @Getter
     @Setter
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "post")
     private List<Tag> tags;
 
 }
