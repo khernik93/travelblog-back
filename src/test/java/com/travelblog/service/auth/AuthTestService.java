@@ -43,12 +43,6 @@ public class AuthTestService {
     @Mock
     private AuthTokenRepository authTokenRepository;
 
-    @Mock
-    private JwtService jwtService;
-
-    @Autowired
-    private BCrypt bCrypt;
-
     @Test
     public void TestCheckEmailAndPasswordNotFound() {
         when(userRepository.findOneByEmail(email)).thenReturn(Optional.empty());
@@ -64,7 +58,6 @@ public class AuthTestService {
     @Test
     public void TestIsAuthenticatedIfNoTokenInRedis() {
         HttpServletRequest httpServletRequest = Mockito.mock(HttpServletRequest.class);
-        when(authTokenRepository.findById(anyString())).thenReturn(Optional.empty());
         boolean result = sut.isAuthenticated(httpServletRequest);
         assertThat(result, equalTo(false));
     }
@@ -72,7 +65,6 @@ public class AuthTestService {
     @Test
     public void TestIsAuthenticatedIfTokenExists() {
         HttpServletRequest httpServletRequest = Mockito.mock(HttpServletRequest.class);
-        when(authTokenRepository.findById(anyString())).thenReturn(Optional.of(new AuthToken()));
         boolean result = sut.isAuthenticated(httpServletRequest);
         assertThat(result, equalTo(false));
     }

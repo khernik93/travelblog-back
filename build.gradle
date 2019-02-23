@@ -62,7 +62,3 @@ dependencies {
             //'org.bouncycastle:bcprov-jdk15on:1.60',
             'io.jsonwebtoken:jjwt-jackson:0.10.5'
 }
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.6'
-}
