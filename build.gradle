@@ -46,6 +46,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.asynchttpclient:async-http-client:2.1.2")
     compileOnly("org.projectlombok:lombok:1.16.18")
+    annotationProcessor('org.projectlombok:lombok:1.18.4')
     compileOnly("org.springframework.boot:spring-boot-configuration-processor")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     runtime("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
