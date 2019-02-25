@@ -42,7 +42,9 @@ services:
     ports:
       - "7000:6379"
     networks:
-      - app-network
+      app-network:
+        aliases:
+          - redis
 
 #Docker Networks
 networks:
