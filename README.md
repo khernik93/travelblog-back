@@ -6,11 +6,15 @@
 
 # Running the server
 
+```
 $ redis-server
 $ ./gradlew build
 $ ./gradlew bootRun
+```
 
 # Deployment
 
+```
 $ docker-compose build
-$ docker-compose up -d
+$ MYSQL_ROOT_PASSWORD = "" docker-compose up -d
+```
