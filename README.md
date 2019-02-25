@@ -16,5 +16,5 @@ $ ./gradlew bootRun
 
 ```
 $ docker-compose build
-$ MYSQL_ROOT_PASSWORD = "" docker-compose up -d
+$ docker-compose up -d
 ```
