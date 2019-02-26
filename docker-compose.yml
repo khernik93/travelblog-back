@@ -13,7 +13,9 @@ services:
     logging:
       driver: json-file
     networks:
-      - app-network
+      app-network:
+        aliases:
+          - backend
 
   #MySQL Service
   db:
