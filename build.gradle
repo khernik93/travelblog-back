@@ -15,6 +15,11 @@ apply plugin: "idea"
 apply plugin: "org.springframework.boot"
 apply plugin: 'io.spring.dependency-management'
 
+task fatJar(type: Jar) {
+    baseName = 'travelblog'
+    with jar
+}
+
 group = "com.travelblog"
 sourceCompatibility = 1.8
 
@@ -41,6 +46,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("org.asynchttpclient:async-http-client:2.1.2")
     compileOnly("org.projectlombok:lombok:1.16.18")
+    annotationProcessor('org.projectlombok:lombok:1.18.4')
     compileOnly("org.springframework.boot:spring-boot-configuration-processor")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     runtime("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
@@ -61,8 +67,4 @@ dependencies {
             // Uncomment the next line if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms:
             //'org.bouncycastle:bcprov-jdk15on:1.60',
             'io.jsonwebtoken:jjwt-jackson:0.10.5'
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.6'
 }

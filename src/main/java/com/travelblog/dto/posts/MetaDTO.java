@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MetaDTO {
-    private Integer start = 0;
-    private Integer end = 0;
-    private Long total = 0L;
+    private Integer start;
+    private Integer end;
+    private Long total;
 }

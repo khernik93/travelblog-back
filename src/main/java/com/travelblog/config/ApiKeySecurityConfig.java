@@ -53,10 +53,7 @@ public class ApiKeySecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .addFilter(authFilter).authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/**").authenticated()
-                .antMatchers(HttpMethod.POST, "/**").authenticated()
-                .antMatchers(HttpMethod.PUT, "/**").authenticated()
-                .antMatchers(HttpMethod.DELETE, "/**").authenticated()
+                .antMatchers("/api/**").authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

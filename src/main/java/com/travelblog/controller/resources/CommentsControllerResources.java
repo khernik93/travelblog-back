@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.CompletableFuture;
 
-@RequestMapping(value = "/comment", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/comment", produces = MediaType.APPLICATION_JSON_VALUE)
 public interface CommentsControllerResources {
 
     /**

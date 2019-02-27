@@ -80,7 +80,7 @@ public class PostsTestService {
         post.setTags(tags);
 
         when(postsRepository.save(post)).thenReturn(post);
-        sut.createPost(post);
+        sut.updatePost(post);
         Mockito.verify(postsRepository, Mockito.times(1)).save(post);
         Mockito.verify(tagsRepository, Mockito.atLeastOnce()).save(tags.get(0));
         Mockito.verify(tagsRepository, Mockito.atLeastOnce()).save(tags.get(1));
